@@ -21,3 +21,7 @@ db-init:
 	FLASK_APP=starnavi.app venv/bin/flask db init
 	FLASK_APP=starnavi.app venv/bin/flask db migrate
 	FLASK_APP=starnavi.app venv/bin/flask db upgrade
+
+.PHONY: seed-run
+seed-run:
+	FLASK_APP=starnavi.app venv/bin/flask seed run --root starnavi/seeds/
