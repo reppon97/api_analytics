@@ -1,0 +1,6 @@
+venv/
+test.py
+.idea/
+__pycache__/
+migrations/
+.pytest_cache/
