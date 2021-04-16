@@ -22,27 +22,28 @@ def test_register(client):
     rv = client.post('/register', json={'email': f'{names.get_first_name("male").lower()}@mail.com',
                                         'password': 'test123', 'first_name': names.get_first_name('male'),
                                         'last_name': names.get_last_name(), 'birth_date': '16-11-1997'})
-    assert {'status': 200} == json.loads(rv.data.decode('utf-8'))
+    assert {'message': 'success'} == json.loads(rv.data.decode('utf-8'))
 
 
 def test_login(client):
-    rv = client.post('/login', json={'email': 'daniel@mail.com', 'password': 'test123'})
+    rv = client.post('/login', json={'email': 'zt91urz@gmail.com', 'password': 'test123'})
     assert 'access_token' in json.loads(rv.data.decode('utf-8'))
 
 
 def test_post(client):
-    rv = client.post('/newpost', json={'title': 'Prodam Garaj', 'body': 'Nedorogo', 'user_id': 1})
+    rv = client.post('/newpost', json={'title': 'Post Title here', 'body': 'Post Body Here! Hello 123', 'user_id': 1})
 
-    assert 'status' in json.loads(rv.data.decode('utf-8'))
+    assert {'message': 'success'} == json.loads(rv.data.decode('utf-8'))
 
 
 def test_like(client):
-    rv = client.post('/like/1')
+    rv = client.post('/like')
 
-    assert 'message' in json.loads(rv.data.decode('utf-8'))
+    assert {'message': 'success'} == json.loads(rv.data.decode('utf-8'))
 
 
 def test_unlike(client):
-    rv = client.delete('/like/1')
+    rv = client.delete('/like')
 
-    assert 'message' in json.loads(rv.data.decode('utf-8'))
+    assert b'' == rv.data
+    # assert {'message': 'success'} == json.loads(rv.data.decode('utf-8'))
