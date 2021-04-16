@@ -37,13 +37,12 @@ def test_post(client):
 
 
 def test_like(client):
-    rv = client.post('/like')
+    rv = client.post('/like', json={'user_id': 1, 'post_id': 1})
 
     assert {'message': 'success'} == json.loads(rv.data.decode('utf-8'))
 
 
 def test_unlike(client):
-    rv = client.delete('/like')
+    rv = client.delete('/like', json={'user_id': 1, 'post_id': 1})
 
     assert b'' == rv.data
-    # assert {'message': 'success'} == json.loads(rv.data.decode('utf-8'))

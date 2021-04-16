@@ -32,7 +32,7 @@ class UserResolver:
 
     @staticmethod
     def create_post(params):
-        user = User.query.filter_by(id=1).first()
+        user = User.query.filter_by(id=params['user_id']).first()
         post = Post(title=params['title'], body=params['body'], user_id=user.id)
         db.session.add(post)
         db.session.commit()
@@ -40,9 +40,9 @@ class UserResolver:
         return {'message': 'success'}
 
     @staticmethod
-    def like():
-        user = User.query.filter_by(id=1).first()
-        post = Post.query.filter_by(id=1).first()
+    def like(params):
+        user = User.query.filter_by(id=params['user_id']).first()
+        post = Post.query.filter_by(id=params['post_id']).first()
         if request.method == 'POST':
             user.like_post(post)
             db.session.commit()
