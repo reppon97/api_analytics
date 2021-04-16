@@ -70,7 +70,8 @@ class Like(Resource):
         POST /like/<post_id>
         :return:
         """
-        return UserResolver.like(), 200
+        args = parser.parse_args()
+        return UserResolver.like(args), 200
 
     @cross_origin()
     def delete(self):
@@ -78,7 +79,8 @@ class Like(Resource):
         DELETE /like/<post_id>
         :return:
         """
-        return UserResolver.like(), 204
+        args = parser.parse_args()
+        return UserResolver.like(args), 204
 
 
 api.add_resource(UserSignUp, "/register")
