@@ -29,7 +29,7 @@ User Register, User Login (+JWT access key), Create Post, Like & Dislike Post
 
 <a>http://localhost:5000/api/analytics?date_from=2018-12-30&date_to=2021-05-01
 
-Like count URL
+Like count URL example
 
 ### api_user table:
 
