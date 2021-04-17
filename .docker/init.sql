@@ -1,0 +1,3 @@
+CREATE USER docker;
+CREATE DATABASE starnavi;
+GRANT ALL PRIVILEGES ON DATABASE starnavi TO docker;

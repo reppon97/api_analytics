@@ -3,8 +3,8 @@ from starnavi.db.models import db, migrate
 from starnavi.config import Config
 from flask_restful import Api, Resource, reqparse
 from flask_cors import CORS, cross_origin
-from starnavi.resolvers import UserResolver, jwt
-from starnavi.seeds.user import seeder
+from starnavi.resolvers import Resolver, jwt, login_manager
+from starnavi.seeds.seeder import seeder
 
 
 app = Flask(__name__)
@@ -16,6 +16,7 @@ db.init_app(app)
 migrate.init_app(app, db)
 seeder.init_app(app, db)
 
+login_manager.init_app(app)
 jwt.init_app(app)
 
 parser = reqparse.RequestParser()
@@ -38,7 +39,7 @@ class UserSignUp(Resource):
         :return:
         """
         args = parser.parse_args()
-        return UserResolver.register(args), 201
+        return Resolver.register(args), 201
 
 
 class UserLogin(Resource):
@@ -49,7 +50,7 @@ class UserLogin(Resource):
         :return:
         """
         args = parser.parse_args()
-        return UserResolver.login(args), 200
+        return Resolver.login(args), 200
 
 
 class Post(Resource):
@@ -60,7 +61,7 @@ class Post(Resource):
         :return:
         """
         args = parser.parse_args()
-        return UserResolver.create_post(args), 201
+        return Resolver.create_post(args), 201
 
 
 class Like(Resource):
@@ -71,7 +72,7 @@ class Like(Resource):
         :return:
         """
         args = parser.parse_args()
-        return UserResolver.like(args), 200
+        return Resolver.like(args), 200
 
     @cross_origin()
     def delete(self):
@@ -80,13 +81,21 @@ class Like(Resource):
         :return:
         """
         args = parser.parse_args()
-        return UserResolver.like(args), 204
+        return Resolver.like(args), 204
+
+    @cross_origin()
+    def get(self):
+        """
+        GET /api/analytics/<date_from>&<date_to>
+        :return:
+        """
+        return Resolver.analytics(), 200
 
 
 api.add_resource(UserSignUp, "/register")
 api.add_resource(UserLogin, "/login")
 api.add_resource(Post, "/newpost")
-api.add_resource(Like, "/like")
+api.add_resource(Like, "/like", "/api/analytics")
 
 
 if __name__ == '__main__':
