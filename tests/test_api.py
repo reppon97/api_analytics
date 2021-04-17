@@ -25,7 +25,7 @@ def test_register(client):
     assert {'message': 'success'} == json.loads(rv.data.decode('utf-8'))
 
 
-def test_login(client):
+def test_jwt(client):
     rv = client.post('/login', json={'email': 'zt91urz@gmail.com', 'password': 'test123'})
     assert 'access_token' in json.loads(rv.data.decode('utf-8'))
 

@@ -79,6 +79,7 @@ class PostLike(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('api_user.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('api_post.id'))
 
-    def __init__(self, user_id, post_id):
+    def __init__(self, user_id, post_id, date_liked):
         self.user_id = user_id
+        self.date_liked = date_liked
         self.post_id = post_id

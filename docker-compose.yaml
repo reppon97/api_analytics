@@ -1,0 +1,30 @@
+version: "3"
+services:
+  postgres:
+    container_name: starnavi-db
+    restart: always
+    build:
+      context: .
+      dockerfile: .docker/postgres.Dockerfile
+    ports:
+    - "4000:5432"
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: starnavi
+      POSTGRES_HOST_AUTH_METHOD: trust
+  api:
+    container_name: starnavi-api
+    build:
+      context: .
+      dockerfile: .docker/api.Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    environment:
+      SQLALCHEMY_DATABASE_URI: postgresql://docker:docker@postgres:5432/starnavi
+      SECRET_KEY: o1u9823dy1293hdi
+      JWT_SECRET_KEY: 19782d19dh183d0183jd
+      FLASK_APP: starnavi.app
+      FLASK_DEBUG: 1
