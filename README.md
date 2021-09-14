@@ -1,4 +1,3 @@
-# Starnavi API Task
 
 Simple Rest Api with Users, Posts, Likes/Dislikes
 
