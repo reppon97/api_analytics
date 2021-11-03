@@ -1,7 +1,7 @@
 
 Simple Rest Api with Users, Posts, Likes/Dislikes
 
-###Stack:
+### Stack:
 * API: Flask
 * PostgreSQL
 
